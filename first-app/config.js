@@ -1,0 +1,5 @@
+
+const CALL_DELAY_MSEC = 5000;
+const MESSAGE_DELAY_MSEC = 10000;
+
+module.exports = { CALL_DELAY_MSEC,  MESSAGE_DELAY_MSEC };
