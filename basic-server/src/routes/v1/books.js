@@ -1,7 +1,7 @@
 const fastify = require('fastify');
 const { readBooks, readBookById, createBook, deleteBook, updateBook } = require("../../services/books");
 const { readBooksOpts, readBookOpts, createBookOpts, deleteBookOpts, updateBookOpts } = require("../../schemas/books");
-
+const { isAllDigits } = require("../../utils/utils");
 const booksRoutes = async (fastify) => {
     fastify.get('/', readBooksOpts, async (request, reply) => {
         try {
@@ -38,6 +38,9 @@ const booksRoutes = async (fastify) => {
     fastify.put('/:id', updateBookOpts, async (request, reply) => {
         try {
             const { title, author, isbn, published_year } = request.body;
+            if (!isAllDigits(isbn)) {
+                reply.code(400).send('isbn not valid must be all digits');
+            }
             const params = {
                 id: request.params.id,
                 book: {
@@ -63,7 +66,9 @@ const booksRoutes = async (fastify) => {
     fastify.post('/', createBookOpts, async (request, reply) => {
         try {
             const { title, author, isbn, published_year } = request.body;
-
+            if (!isAllDigits(isbn)) {
+                reply.code(400).send('isbn not valid must be all digits');
+            }
             const params = {
                 book: {
                     title,
