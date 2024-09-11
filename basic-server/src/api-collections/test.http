@@ -1,0 +1,7 @@
+@host = http://localhost:3000
+
+GET {{ host }}/ HTTP/1.1
+
+###
+
+GET {{ host }}/healthcheck HTTP/1.1
