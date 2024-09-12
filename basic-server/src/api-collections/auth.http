@@ -1,0 +1,55 @@
+@host = http://localhost:3001
+
+POST {{ host }}/auth/signup/ HTTP/1.1
+Content-Type: 'application/json'
+
+{
+    "username": "chosen",
+    "password": "creains1",
+    "role": "normal"
+}
+###
+
+POST {{ host }}/auth/signup/ HTTP/1.1
+Content-Type: 'application/json'
+
+{
+    "username": "abcde",
+    "password": "dodcvdsdve",
+    "role": "admin"
+}
+###
+
+POST {{ host }}/auth/login/ HTTP/1.1
+Content-Type: 'application/json'
+
+{
+    "username": "john",
+    "password": "doe"
+}
+###
+
+POST {{ host }}/auth/login/ HTTP/1.1
+Content-Type: 'application/json'
+
+{
+    "username": "chosen",
+    "password": "creains1"
+}
+###
+
+POST {{ host }}/auth/verify/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiY2hvc2VuIiwiaWQiOjYsInJvbGUiOiJub3JtYWwiLCJvcGVyYXRpb25zIjpbInJlYWQiXSwiaWF0IjoxNzI2MTI1MzkxfQ.CbC1tkx-_iJTNXmfOfvtkTY2R2VkPSDlXXQPewnDAQU
+
+{
+}
+###
+
+POST {{ host }}/auth/verify/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiam9obiIsImlkIjoxLCJyb2xlIjoiYWRtaW4iLCJvcGVyYXRpb25zIjpbInJlYWQiLCJ3cml0ZSIsImRlbGV0ZSJdLCJpYXQiOjE3MjYxMjcxNzMsImV4cCI6MTcyNjIxMzU3M30.sGjNHahktgoN_UEmHgk09dnc2i_2gZGrCbNJ4Xf3SHw
+
+{
+}
+###
