@@ -12,7 +12,17 @@ const app = build(
             },
             servers: [
                 { url: 'http://localhost:3000', description: 'development server' }
-            ]
+            ],
+            components: {
+                securitySchemes: {
+                    bearerAuth: {
+                        type: 'http',
+                        scheme: 'bearer',
+                        bearerFormat: 'JWT',
+                        description: 'Enter the JWT token'
+                    }
+                }
+            },
         }
     },
     {

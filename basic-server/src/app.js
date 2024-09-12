@@ -21,6 +21,13 @@ const build = (opts={}, swaggerOpts={}, swaggerUiOpts={}, fastifyPostgresOpts={}
     app.register(healthCheck, { prefix: '/healthcheck' });
 
     app.addHook('preHandler', async (request, reply) => {
+        console.log('----------------->', request.routerPath);
+      
+
+        // if (request.routerPath === '/docs') {
+        if (request.raw.url.startsWith('/docs')) {
+            return; // Non eseguire nulla per questa rotta
+        }
         const { authorization } = request.headers;
         const response = await axios.post(`${authOpts.host}/auth/verify/`, {}, {
             headers: { Authorization: authorization, 'content-type': 'application/json' }

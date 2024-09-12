@@ -24,6 +24,7 @@ const bookNotFoundResponse = {
 
 const readBookOpts = {
     schema: {
+        security: [{ bearerAuth: [] }],
         params: {
             id: { type: 'string' }
         },
@@ -36,6 +37,7 @@ const readBookOpts = {
 
 const readBooksOpts = {
     schema: {
+        security: [{ bearerAuth: [] }],
         querystring: {
             type: 'object',
             properties: {
@@ -55,6 +57,7 @@ const readBooksOpts = {
 
 const createBookOpts = {
     schema: {
+        security: [{ bearerAuth: [] }],
         body: {
             type: 'object',
             required: ['title', 'author', 'isbn', 'published_year'],
@@ -73,6 +76,7 @@ const createBookOpts = {
 
 const updateBookOpts = {
     schema: {
+        security: [{ bearerAuth: [] }],
         params: {
             id: { type: 'string' }
         },
@@ -94,6 +98,7 @@ const updateBookOpts = {
 
 const deleteBookOpts = {
     schema: {
+        security: [{ bearerAuth: [] }],
         response: {
             204: {}
         }

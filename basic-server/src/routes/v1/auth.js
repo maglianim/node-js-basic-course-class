@@ -1,7 +1,7 @@
 const fastify = require('fastify');
 const { createUser, login } = require("../../services/auth");
 // const { readBooksOpts, readBookOpts, createBookOpts, deleteBookOpts, updateBookOpts } = require("../../schemas/books");
-const { createUserOpts } = require("../../schemas/auth");
+const { createUserOpts, loginOpts } = require("../../schemas/auth");
 const authRoutes = async (fastify) => {
     
     
@@ -19,7 +19,7 @@ const authRoutes = async (fastify) => {
     //     // }
     // });
 
-    fastify.post('/login/', async(request, reply) => {
+    fastify.post('/login/', loginOpts, async(request, reply) => {
         try {
             const { username, password } = request.body;
             const params = {
