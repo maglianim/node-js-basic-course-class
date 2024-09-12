@@ -1,11 +1,17 @@
 const fastify = require('fastify');
 const { readBooks, readBookById, createBook, deleteBook, updateBook } = require("../../services/books");
+const { checkRead, checkWrite, checkDelete } = require("../../services/utils");
 const { readBooksOpts, readBookOpts, createBookOpts, deleteBookOpts, updateBookOpts } = require("../../schemas/books");
 const { isAllDigits } = require("../../utils/utils");
 const booksRoutes = async (fastify) => {
-    fastify.get('/', readBooksOpts, async (request, reply) => {
+    fastify.get('/', {
+        ...readBooksOpts,
+        preHandler: async (request, reply) => {
+            checkRead(reply, request.user.operations)
+        }
+    }, async (request, reply) => {
         try {
-            const {author, publicationYear, sortByYear, pageSize, pageNumber } = request.query; 
+            const { author, publicationYear, sortByYear, pageSize, pageNumber } = request.query; 
             const params = {
                 author,
                 publicationYear,
@@ -22,7 +28,12 @@ const booksRoutes = async (fastify) => {
         }
     });
     
-    fastify.get('/:id', readBookOpts, async (request, reply) => {
+    fastify.get('/:id', {
+        ...readBookOpts, 
+        preHandler: async (request, reply) => {
+            checkRead(reply, request.user.operations)
+        }
+    }, async (request, reply) => {
         try {
             const row = await readBookById(fastify.pg, request.params.id);
             if (!row) {
@@ -35,7 +46,12 @@ const booksRoutes = async (fastify) => {
         }
     });
 
-    fastify.put('/:id', updateBookOpts, async (request, reply) => {
+    fastify.put('/:id', {
+        ...updateBookOpts,
+        preHandler: async (request, reply) => {
+            checkWrite(reply, request.user.operations)
+        }
+     }, async (request, reply) => {
         try {
             const { title, author, isbn, published_year } = request.body;
             if (!isAllDigits(isbn)) {
@@ -63,7 +79,12 @@ const booksRoutes = async (fastify) => {
         }
     });
 
-    fastify.post('/', createBookOpts, async (request, reply) => {
+    fastify.post('/', {
+        ...createBookOpts, 
+        preHandler: async (request, reply) => {
+            checkWrite(reply, request.user.operations)
+        }
+    }, async (request, reply) => {
         try {
             const { title, author, isbn, published_year } = request.body;
             if (!isAllDigits(isbn)) {
@@ -85,7 +106,11 @@ const booksRoutes = async (fastify) => {
         }
     });
 
-    fastify.delete('/:id', async (request, reply) => {
+    fastify.delete('/:id', {
+        preHandler: async (request, reply) => {
+            checkDelete(reply, request.user.operations)
+        }
+    }, async (request, reply) => {
         try {
             const rowCount = await deleteBook(fastify.pg, request.params.id);
             if (rowCount > 0) {

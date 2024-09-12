@@ -3,6 +3,9 @@
 
 
 GET http://localhost:3000/books/?pageSize=10&pageNumber=1&sortByYear=asc HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiam9obiIsImlkIjoxLCJyb2xlIjoiYWRtaW4iLCJvcGVyYXRpb25zIjpbInJlYWQiLCJ3cml0ZSIsImRlbGV0ZSJdLCJpYXQiOjE3MjYxMjcxNzMsImV4cCI6MTcyNjIxMzU3M30.sGjNHahktgoN_UEmHgk09dnc2i_2gZGrCbNJ4Xf3SHw
+Content-Type: 'application/json'
+
 ###
 
 GET {{ host }}/books?publicationYear=2023&sortByYear=desc&pageSize=10&pageNumber=1 HTTP/1.1
@@ -38,5 +41,6 @@ Content-Type: 'application/json'
 }
 ###
 
-DELETE {{ host }}/books/63 HTTP/1.1
+DELETE {{ host }}/books/33363 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiY2hvc2VuIiwiaWQiOjYsInJvbGUiOiJub3JtYWwiLCJvcGVyYXRpb25zIjpbInJlYWQiXSwiaWF0IjoxNzI2MTMwMzU0LCJleHAiOjE3MjYyMTY3NTR9.CZf70BOZjfgVYt1HpFCs_6WVWcQddePO093P6IkQQ_M
 ###

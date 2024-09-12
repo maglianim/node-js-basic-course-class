@@ -22,7 +22,8 @@ const app = build(
             deepLinking: false,
         }
     },
-    { connectionString: env.POSTGRES_DB_CONNECTION }
+    { connectionString: env.POSTGRES_DB_CONNECTION },
+    { host: 'http://localhost:3001' }
 );
 
 app.listen({ port: 3000, host: "localhost" }, (err) => {
